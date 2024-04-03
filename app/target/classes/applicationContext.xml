@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<bean id="tv" class="com.yedam.spring.TV" />
+	<bean id="cf" class="com.yedam.spring.xml.Chef"/>
+	<!-- 클래스 종류랑 상관없이 id는 무조건 하나 
+	
+	-->
+	
+	<!-- xml 방식  -->
+	<bean class="com.yedam.spring.xml.Restaurant"> <!-- bean 주입 되는 대상 -->
+		<property name="chef" ref="cf" /> <!-- property 주입 받는 대상 getter,setter 추가해야됨-->
+				<!-- name="setter 이름(필드명):setChef를 찾음" 
+				 ref="bean id="??" 의 id의 ??이름와 같은 이름이어야 됨 || 컨테이너에 등록되어 있는 애들 중에서 하나를 집어넣음 
+				 기본적으로 value=""를 씀 -->
+	</bean>
+	
+	<context:component-scan base-package="com.yedam.spring"></context:component-scan>
+									<!-- 정해진 경로 밑으로만 인식해서 실행할 수 있음. -->
+	
+</beans>
