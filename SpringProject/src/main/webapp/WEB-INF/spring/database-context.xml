@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- datasource connection pool -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName"
+			value="oracle.jdbc.OracleDriver" />
+		<property name="jdbcUrl"
+			value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
+		<property name="username" value="hr" />
+		<property name="password" value="hr" />
+	</bean>
+	<!-- 없으면  Failed to configure a DataSource:
+	 'url' attribute is not specified and no embedded datasource
+	  could be configured.  에러 뜸-->
+	
+	
+	<!-- db정보를 가지는 bean -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<constructor-arg ref="hikariConfig" />
+	</bean>
+
+	<!-- mybatis SqlSessionFactory -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+	</bean>
+		<!-- name="configLocation" mybatis-config.xml 정보를 담아오는 역할  -->
+
+	<!-- mapper scan -->
+	<mybatis-spring:scan
+		base-package="com.yedam.java.**.mapper" />
+		<!-- 정해진 구도로 써야됨 | mapper 클래스를 직접 만드는 작업을 함 
+		mapper 전용 bean을 만들기 위함 | servlet-context에 scan을 넣어줘야 됨 
+		충돌 날 일도 있어서 범위를 좁혀야 됨 -->
+		
+</beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		<setting name="jdbcTypeForNull" value="VARCHAR" />
+	</settings>
+	<typeAliases>
+		<package name="com.yedam.java.emp.service" />
+	</typeAliases>
+	<!-- result타입 parameter타입 패키지명까지 써야함.  -->
+	<typeHandlers>
+		<typeHandler javaType="java.sql.Date"
+			handler="org.apache.ibatis.type.DateTypeHandler" />
+	</typeHandlers>
+	<!-- 날짜처리하기 위함  util 밑에 Date 타입으로 쓰겠다는 선언. -->
+</configuration>
